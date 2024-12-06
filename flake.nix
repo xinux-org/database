@@ -11,7 +11,7 @@
         devShells.default = mkShell {
           packages = [
             brotli
-            generator.defaultPackage.${system}
+            generator.packages.${system}.default
           ];
         };
       });
