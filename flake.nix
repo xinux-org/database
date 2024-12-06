@@ -5,14 +5,29 @@
     generator.url = "github:xinux-org/generator";
   };
 
-  outputs = { self, nixpkgs, utils, generator }:
-    utils.lib.eachDefaultSystem (system:
-      with import nixpkgs { inherit system; }; {
-        devShells.default = mkShell {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      utils,
+      generator,
+    }:
+    utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+      {
+        # Nix script formatter
+        formatter = pkgs.nixfmt-rfc-style;
+
+        # Development environment
+        devShells.default = pkgs.mkShell {
           packages = [
-            brotli
+            pkgs.brotli
             generator.packages.${system}.default
           ];
         };
-      });
+      }
+    );
 }
