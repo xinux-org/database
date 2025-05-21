@@ -3,7 +3,7 @@ name: "Generate package database"
 on:
   workflow_dispatch:
   schedule:
-  - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
 
 jobs:
   build:
@@ -13,33 +13,33 @@ jobs:
       contents: write
 
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - uses: DeterminateSystems/nix-installer-action@main
-    - uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Install nix package manager
+        uses: DeterminateSystems/nix-installer-action@main
 
-    - name: Create databases
-      run: |
-        sleep $((RANDOM % 60))
-        for Line in $(cat versions)
-        do
-          PREV_VERSION=$(cat $Line/nixpkgs.ver)
-          RUST_LOG=generator=trace nix develop --command -- generator -v $Line --src $Line 1>&2
-          NEW_VERSION=$(cat $Line/nixpkgs.ver)
-          if [ "$PREV_VERSION" != "$NEW_VERSION" ]; then
-            if [ -f "$Line/nixpkgs.db" ]; then
-              brotli ./$Line/nixpkgs.db -o ./$Line/nixpkgs.db.br -v -f 1>&2
+      - name: Create databases
+        run: |
+          sleep $((RANDOM % 60))
+          for Line in $(cat versions)
+          do
+            PREV_VERSION=$(cat $Line/nixpkgs.ver)
+            RUST_LOG=generator=trace nix develop --command -- generator -v $Line --src $Line 1>&2
+            NEW_VERSION=$(cat $Line/nixpkgs.ver)
+            if [ "$PREV_VERSION" != "$NEW_VERSION" ]; then
+              if [ -f "$Line/nixpkgs.db" ]; then
+                brotli ./$Line/nixpkgs.db -o ./$Line/nixpkgs.db.br -v -f 1>&2
+              fi
+              if [ -f "$Line/nixpkgs_versions.db" ]; then
+                brotli ./$Line/nixpkgs_versions.db -o ./$Line/nixpkgs_versions.db.br -v -f 1>&2
+              fi
             fi
-            if [ -f "$Line/nixpkgs_versions.db" ]; then
-              brotli ./$Line/nixpkgs_versions.db -o ./$Line/nixpkgs_versions.db.br -v -f 1>&2
-            fi
-          fi
-        done
+          done
 
-    - uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_message: Update databases
-        commit_user_email: developers@floss.uz
-        commit_author: GitHub Actions <developers@floss.uz>
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update databases
+          commit_user_email: developers@floss.uz
+          commit_author: GitHub Actions <developers@floss.uz>
