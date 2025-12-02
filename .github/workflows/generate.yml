@@ -2,8 +2,14 @@ name: "Generate package database"
 
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: "0 0 * * *"
+  push: 
+    branches:
+    - main
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  contents: write
 
 jobs:
   build:
