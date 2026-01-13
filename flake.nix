@@ -46,12 +46,10 @@
         formatter = pkgs.alejandra;
 
         # Development environment
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            brotli
-            xinux-generator
-          ];
-        };
+        devShells.default = import ./shell.nix self {inherit pkgs;};
+
+        # Output package
+        packages.default = pkgs.callPackage ./. {inherit pkgs;};
       };
     });
 }

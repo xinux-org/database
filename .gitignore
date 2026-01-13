@@ -1,4 +1,12 @@
+# Output databases
 *.db
 *.db-shm
 *.db-wal
+
+# Nix
 /result
+
+# Direnv
+.direnv
+
+# Testing
