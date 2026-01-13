@@ -13,7 +13,7 @@
 
 ## About
 
-This repository holds pre-generated, ready to use sqlite databases that contains package meta & details derived from `nixpkgs`. This repository serves our GTK software as a source of truth to obrain data about packages. Our runners run every at 12:00 and keeps databases updated.
+This repository holds pre-generated, ready to use sqlite databases that contains package meta & details derived from `nixpkgs`. This repository serves our GTK software as a source of truth to obrain data about packages. Our runners `run every hour` and keeps databases updated.
 
 ## Branches
 
