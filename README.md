@@ -19,10 +19,10 @@ This repository holds pre-generated, ready to use sqlite databases that contains
 
 We have the following branches of `nixpkgs`:
 
-- nixos-25.05
-- nixos-25.11
-- nixos-unstable
-- nixpkgs-unstable
+- [nixos-25.05](https://github.com/xinux-org/database/tree/main/nixos-25.05)
+- [nixos-25.11](https://github.com/xinux-org/database/tree/main/nixos-25.11)
+- [nixos-unstable](https://github.com/xinux-org/database/tree/main/nixos-unstable)
+- [nixpkgs-unstable](https://github.com/xinux-org/database/tree/main/nixpkgs-unstable)
 
 ## How to add
 
