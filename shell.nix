@@ -5,7 +5,7 @@ in
   pkgs.mkShell {
     inputsFrom = [base];
 
-    nativeBuildInputs = with pkgs; [
+    packages = with pkgs; [
       nixd
       statix
       deadnix

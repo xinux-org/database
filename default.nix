@@ -9,9 +9,6 @@ in
       xinux-generator
     ];
 
-    runtimeEnv = {
-    };
-
     text = ''
       sleep $((RANDOM % 60))
 
