@@ -20,16 +20,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-        with:
-          extra-conf: |
-            experimental-features = nix-command flakes pipe-operators
-            extra-substituters = https://cache.xinux.uz/
-            extra-trusted-public-keys = cache.xinux.uz:BXCrtqejFjWzWEB9YuGB7X2MV4ttBur1N8BkwQRdH+0=
-
       - name: Create databases
-        run: nix run
+        run: nix run --show-trace
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
